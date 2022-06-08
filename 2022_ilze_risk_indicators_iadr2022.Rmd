@@ -1,0 +1,311 @@
+---
+title: "Ilze risk indicators"
+output:
+  html_document:
+    toc: yes
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+    code_folding: hide
+  pdf_document:
+    toc: yes
+---
+
+```{r}
+knitr::opts_chunk$set(
+  fig.width = 12,
+  fig.height = 8,
+  fig.path = 'Figs/',
+  echo = FALSE,
+  include= TRUE,  # for the chunks to be displayed
+  warning = FALSE,
+  message = FALSE,
+  out.width = "75%"
+)# Use include=TRUE for the chunks to be displayed
+```
+
+Packages
+
+```{r}
+pacman::p_load(tidyverse, 
+               visdat, # for NAs
+               table1, 
+               janitor,  # for data cleaning
+               sjPlot,   # for model vis
+               gtsummary, # for summary tables
+               performance # for regression diagnostic check
+)
+```
+
+Dataset
+
+```{r}
+ecc <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRaanB0FUyB-NrIJpC_OpxZ2E6h3gsZ5sM65E-5PEvXxew2UGfBWXAU38jGww_GklQCDWyDJ63o-KNc/pub?gid=0&single=true&output=csv")
+```
+
+```{r}
+ecc <- ecc %>% 
+  janitor::clean_names() %>% 
+  janitor::remove_empty(which = c("rows", "cols")) %>% 
+  select(-c(code, 
+            syrup, 
+            examination_date, 
+            birth_date))
+```
+
+```{r}
+visdat::vis_dat(ecc)
+```
+
+Change output variable
+
+```{r}
+ecc <- ecc %>% 
+  mutate(ecc2 = case_when(
+    ecc == "Yes" ~ "1", 
+    TRUE ~ "0"
+  )) %>% 
+  mutate(ecc2 = as.integer(ecc2)) 
+```
+
+# EDA
+
+```{r}
+ecc %>% 
+  janitor::tabyl(ecc2)
+```
+
+```{r}
+table(ecc$ecc2)
+```
+
+## age
+
+```{r}
+ecc %>% 
+  summarize(mean(age), sd(age))
+```
+
+
+```{r}
+ecc %>% 
+  ggplot(aes(x = age)) +
+  geom_histogram(bins = 5) +
+  facet_grid(gender ~ .)
+```
+
+## age by ecc
+
+
+```{r}
+ecc %>% 
+  ggplot(aes(x = age)) +
+  geom_histogram(bins = 5) +
+  facet_grid(ecc ~ .)
+```
+
+
+Mark baseline factors
+
+```{r}
+ecc <- ecc %>% 
+  mutate(toothbrushing_frequency = fct_relevel(toothbrushing_frequency, "Twice daily and more" ))
+```
+
+toothbrushing_frequency = Twice daily and more
+
+```{r}
+ecc <- ecc %>% 
+  mutate(dental_hygienist_attendance = fct_relevel(dental_hygienist_attendance, "Regular twice year", ">2", "1", "0")) %>% 
+  mutate(dentist_attendance = fct_relevel(dentist_attendance, "Regular twice year", ">2", "1", "0")) %>% 
+  mutate(breastfeeding_code = fct_relevel(breastfeeding_code, "<6", ">6", ">12", ">24")) %>% 
+  mutate(toothpaste = fct_relevel(toothpaste, "Fluoride", "Low Fluoride", "Fluoride Free"))
+```
+
+```{r}
+ecc <- ecc %>%
+  mutate(general_health_01 = as.character(general_health_01))
+```
+
+```{r}
+# ecc <- ecc %>% 
+#  mutate(breastfeedong = case_when(
+#    breastfeedong == "baro" ~ "24", 
+#    TRUE ~ breastfeedong
+#  )) %>% 
+#  mutate(breastfeedong = as.double(breastfeedong))
+```
+
+#Table 1
+
+```{r}
+table1::table1(
+  ~ age + gender + parental_brushing + toothbrushing_frequency + toothpaste + hygiene_combined_foranalysis + sugar_liquid + sugar_solid + imrovement_diet + diet_combined_foranalysis + plaque + bottle_feeding + breastfeeding_code + mouth_breathing |
+  ecc,
+  data = ecc
+  )
+```
+
+# Regression model
+
+delete the never in toothbrushing frequency
+
+```{r}
+# ecc$toothbrushing_frequency <-  fct_collapse(ecc$toothbrushing_frequency, "In mornings or less than once" # = c("In mornings or less than once", "Never"))
+```
+
+Omit NA in breastfeeding code
+
+```{r}
+ecc <- ecc %>% 
+  filter(!is.na(breastfeeding_code)) %>% 
+  filter(breastfeeding_code != "#N/A") 
+```
+
+
+Drop levels
+
+```{r}
+
+ecc$breastfeeding_code <- fct_drop(ecc$breastfeeding_code)
+```
+
+
+# Table 1a
+
+```{r}
+ecc %>%
+  select(
+    gender ,
+    age ,
+    ecc2 ,
+    general_health_01 ,
+    parental_brushing ,
+    dental_hygienist_attendance ,
+    dentist_attendance ,
+    toothbrushing_frequency ,
+    toothpaste ,
+    
+    improvement_hygiene ,
+    sugar_liquid ,
+    sugar_solid ,
+    
+    # imrovement_diet ,
+    plaque ,
+    bottle_feeding ,
+    # breastfeedong +
+    breastfeeding_code ,
+    mouth_breathing
+  ) %>%
+  gtsummary::tbl_summary(by = gender) %>%
+  gtsummary::add_overall() %>% 
+  gtsummary::bold_labels()
+```
+
+
+# Regression table
+## m1 full
+
+relevel for analysis
+
+```{r}
+
+ecc <- ecc %>% 
+  mutate(hygiene_combined_foranalysis = fct_relevel(hygiene_combined_foranalysis, "Twice daily and more Fluoride Always",
+                                                    "Twice daily and more Fluoride Recently", 
+"Twice daily and more Fluoride Free", 
+"In evenings Fluoride Always", 
+"In evenings Fluoride Recently", 
+"In evenings Low Fluoride", 
+"Less than once per day and/or no fluoride"))
+
+
+```
+
+
+
+
+```{r}
+m1 <-
+  glm(
+    ecc2 ~
+      age +
+      gender +
+      
+      hygiene_combined_foranalysis +
+      
+      parental_brushing +
+      plaque +
+      
+      dental_hygienist_attendance +
+      
+      bottle_feeding +
+      breastfeeding_code +
+      
+      diet_combined_foranalysis +
+      mouth_breathing,
+    data = ecc,
+    family = binomial
+  )
+```
+
+```{r}
+gtsummary::tbl_regression(m1, exponentiate = TRUE) %>% 
+  gtsummary::bold_labels() %>% 
+  gtsummary::add_n(location = "level")
+```
+
+
+
+```{r}
+m2 <-
+  glm(
+    ecc2 ~ parental_brushing + 
+      dental_hygienist_attendance + 
+      dentist_attendance +
+      age + 
+      gender + 
+      general_health_01 + 
+      toothbrushing_frequency +
+      toothpaste + 
+
+      improvement_hygiene + 
+      sugar_liquid + 
+      sugar_solid +
+      
+      # imrovement_diet + 
+      plaque + 
+      bottle_feeding + 
+      # breastfeedong +
+      breastfeeding_code +
+      mouth_breathing +
+      
+      # interactions
+      toothbrushing_frequency * improvement_hygiene + 
+      toothpaste * improvement_hygiene, 
+      
+    data = ecc,
+    family = binomial
+  )
+```
+```{r}
+gtsummary::tbl_regression(m2, exponentiate = TRUE) %>% 
+  gtsummary::bold_labels() %>% 
+  gtsummary::add_n(location = "level")
+```
+
+
+
+## Check model
+
+### m1
+
+```{r}
+performance::check_model(m1)
+```
+```{r}
+report::report_text(m1)
+```
+
+
+
