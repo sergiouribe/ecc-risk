@@ -1765,32 +1765,10 @@ factors</h1>
 <h1>General setup and packages</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxua25pdHI6Om9wdHNfY2h1bmskc2V0KFxuICBmaWcud2lkdGggPSAxMixcbiAgZmlnLmhlaWdodCA9IDgsXG4gIGZpZy5wYXRoID0gJ0ZpZ3MvJyxcbiAgZWNobyA9IEZBTFNFLFxuICBpbmNsdWRlPSBUUlVFLCAgIyBmb3IgdGhlIGNodW5rcyB0byBiZSBkaXNwbGF5ZWRcbiAgd2FybmluZyA9IEZBTFNFLFxuICBtZXNzYWdlID0gRkFMU0UsXG4gIG91dC53aWR0aCA9IFwiNzUlXCJcbikjIFVzZSBpbmNsdWRlPVRSVUUgZm9yIHRoZSBjaHVua3MgdG8gYmUgZGlzcGxheWVkXG5gYGAifQ== -->
-<pre class="r"><code>knitr::opts_chunk$set(
-  fig.width = 12,
-  fig.height = 8,
-  fig.path = &#39;Figs/&#39;,
-  echo = FALSE,
-  include= TRUE,  # for the chunks to be displayed
-  warning = FALSE,
-  message = FALSE,
-  out.width = &quot;75%&quot;
-)# Use include=TRUE for the chunks to be displayed</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGFjbWFuOjpwX2xvYWQodGlkeXZlcnNlLCBcbiAgICAgICAgICAgICAgIHZpc2RhdCwgIyBmb3IgTkFzXG4gICAgICAgICAgICAgICB0YWJsZTEsIFxuICAgICAgICAgICAgICAgamFuaXRvciwgICMgZm9yIGRhdGEgY2xlYW5pbmdcbiAgICAgICAgICAgICAgIHNqUGxvdCwgICAjIGZvciBtb2RlbCB2aXNcbiAgICAgICAgICAgICAgIGd0c3VtbWFyeSwgIyBmb3Igc3VtbWFyeSB0YWJsZXNcbiAgICAgICAgICAgICAgIHBlcmZvcm1hbmNlICMgZm9yIHJlZ3Jlc3Npb24gZGlhZ25vc3RpYyBjaGVja1xuKVxuYGBgIn0= -->
-<pre class="r"><code>pacman::p_load(tidyverse, 
-               visdat, # for NAs
-               table1, 
-               janitor,  # for data cleaning
-               sjPlot,   # for model vis
-               gtsummary, # for summary tables
-               performance # for regression diagnostic check
-)</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -1798,14 +1776,11 @@ factors</h1>
 <h1>Dataset</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZWNjIDwtIHJlYWRfY3N2KFwiaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvZS8yUEFDWC0xdlJhYW5CMEZVeUItTnJJSnBDX09weFoyRTZoM2dzWjVzTTY1RS01UEV2WHhldzJVR2ZCV1hBVTM4akd3d19Ha2xRQ0RXeURKNjNvLUtOYy9wdWI/Z2lkPTAmc2luZ2xlPXRydWUmb3V0cHV0PWNzdlwiKVxuYGBgIn0= -->
-<pre class="r"><code>ecc &lt;- read_csv(&quot;https://docs.google.com/spreadsheets/d/e/2PACX-1vRaanB0FUyB-NrIJpC_OpxZ2E6h3gsZ5sM65E-5PEvXxew2UGfBWXAU38jGww_GklQCDWyDJ63o-KNc/pub?gid=0&amp;single=true&amp;output=csv&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUm93czogOTA0IENvbHVtbnM6IDMzXG7ilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5EZWxpbWl0ZXI6IFwiLFwiXG5jaHIgKDMxKTogQ29kZSwgUGFyZW50YWxfYnJ1c2hpbmcsIERlbnRhbF9oeWdpZW5pc3RfYXR0ZW5kYW5jZSwgRGVudGlzdF9hdHRlbmRhbmNlLCBFeGFtaW5hdGlvbl9kYXRlLCBCaXJ0aF8uLi5cbmRibCAgKDIpOiBBZ2UsIEdlbmVyYWxfaGVhbHRoXzAxXG5cbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogOTA0IENvbHVtbnM6IDMzXG7ilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5EZWxpbWl0ZXI6IFwiLFwiXG5jaHIgKDMxKTogQ29kZSwgUGFyZW50YWxfYnJ1c2hpbmcsIERlbnRhbF9oeWdpZW5pc3RfYXR0ZW5kYW5jZSwgRGVudGlzdF9hdHRlbmRhbmNlLCBFeGFtaW5hdGlvbl9kYS4uLlxuZGJsICAoMik6IEFnZSwgR2VuZXJhbF9oZWFsdGhfMDFcblxu4oS5IFVzZSBgc3BlYygpYCB0byByZXRyaWV2ZSB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbiBmb3IgdGhpcyBkYXRhLlxu4oS5IFNwZWNpZnkgdGhlIGNvbHVtbiB0eXBlcyBvciBzZXQgYHNob3dfY29sX3R5cGVzID0gRkFMU0VgIHRvIHF1aWV0IHRoaXMgbWVzc2FnZS5cbiJ9 -->
 <pre><code>Rows: 904 Columns: 33
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ──────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
-chr (31): Code, Parental_brushing, Dental_hygienist_attendance, Dentist_attendance, Examination_date, Birth_...
+chr (31): Code, Parental_brushing, Dental_hygienist_attendance, Dentist_attendance, Examination_da...
 dbl  (2): Age, General_health_01
 
 ℹ Use `spec()` to retrieve the full column specification for this data.
@@ -1817,15 +1792,18 @@ dbl  (2): Age, General_health_01
 <h2>Data cleaning</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZWNjIDwtIGVjYyAlPiUgXG4gIGphbml0b3I6OmNsZWFuX25hbWVzKCkgJT4lIFxuICBqYW5pdG9yOjpyZW1vdmVfZW1wdHkod2hpY2ggPSBjKFwicm93c1wiLCBcImNvbHNcIikpICU+JSBcbiAgc2VsZWN0KC1jKGNvZGUsIFxuICAgICAgICAgICAgc3lydXAsIFxuICAgICAgICAgICAgZXhhbWluYXRpb25fZGF0ZSwgXG4gICAgICAgICAgICBiaXJ0aF9kYXRlKSlcbmBgYCJ9 -->
-<pre class="r"><code>ecc &lt;- ecc %&gt;% 
-  janitor::clean_names() %&gt;% 
-  janitor::remove_empty(which = c(&quot;rows&quot;, &quot;cols&quot;)) %&gt;% 
-  select(-c(code, 
-            syrup, 
-            examination_date, 
-            birth_date))</code></pre>
-<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gYGZpbHRlcigpYDpcbiEgUHJvYmxlbSB3aGlsZSBjb21wdXRpbmcgYC4uMSA9IGFnZSA8IDZgLlxuQ2F1c2VkIGJ5IGVycm9yOlxuISBvYmplY3QgJ2FnZScgbm90IGZvdW5kXG5CYWNrdHJhY2U6XG4gIDEuIC4uLiAlPiUgLi4uXG4gIDguIGRwbHlyOjo6ZmlsdGVyLmRhdGEuZnJhbWUoLiwgYWdlIDwgNilcbiAgOS4gZHBseXI6OjpmaWx0ZXJfcm93cyguZGF0YSwgLi4uLCBjYWxsZXJfZW52ID0gY2FsbGVyX2VudigpKVxuIDEwLiBkcGx5cjo6OmZpbHRlcl9ldmFsKGRvdHMsIG1hc2sgPSBtYXNrLCBlcnJvcl9jYWxsID0gZXJyb3JfY2FsbClcbiAxMi4gbWFzayRldmFsX2FsbF9maWx0ZXIoZG90cywgZW52X2ZpbHRlcilcbiJ9 -->
+<pre><code>Error in `filter()`:
+! Problem while computing `..1 = age &lt; 6`.
+Caused by error:
+! object &#39;age&#39; not found
+Backtrace:
+  1. ... %&gt;% ...
+  8. dplyr:::filter.data.frame(., age &lt; 6)
+  9. dplyr:::filter_rows(.data, ..., caller_env = caller_env())
+ 10. dplyr:::filter_eval(dots, mask = mask, error_call = error_call)
+ 12. mask$eval_all_filter(dots, env_filter)</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -1834,54 +1812,48 @@ dbl  (2): Age, General_health_01
 <h1>Exploratory Data Analysis</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2xpbXBzZShlY2MpXG5gYGAifQ== -->
-<pre class="r"><code>glimpse(ecc)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMjcxXG5Db2x1bW5zOiAyOVxuJCBwYXJlbnRhbF9icnVzaGluZyAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJTZWxkb20gb3IgbmV2ZXJcIiwgXCJFdmVyeSBuaWdodFwiLCBcIlNlbGRvbSBvciBuZXZlclwiLCBcIk9jY2FzaW9uYWxs4oCmXG4kIGRlbnRhbF9oeWdpZW5pc3RfYXR0ZW5kYW5jZSAgICAgICAgICA8Y2hyPiBcIj4yXCIsIFwiMVwiLCBcIjFcIiwgXCI+MlwiLCBcIj4yXCIsIFwiPjJcIiwgXCIwXCIsIFwiMFwiLCBcIjFcIiwgXCIwXCIsIFwiMFwiLCBcIjBcIiwgXCLigKZcbiQgZGVudGlzdF9hdHRlbmRhbmNlICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiPjJcIiwgXCI+MlwiLCBcIjBcIiwgXCI+MlwiLCBcIjFcIiwgXCI+MlwiLCBcIj4yXCIsIFwiPjJcIiwgXCI+MlwiLCBcIjBcIiwgXCI+MlwiLCBcIjHigKZcbiQgYWdlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxkYmw+IDAsIDQsIDIsIDIsIDUsIDMsIDAsIDAsIDIsIDMsIDEsIDQsIDIsIDMsIDQsIDUsIDYsIDAsIDUsIDMsIDMsIDAs4oCmXG4kIGdlbmRlciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2hyPiBcIkJveVwiLCBcIkJveVwiLCBcIkJveVwiLCBcIkJveVwiLCBcIkJveVwiLCBcIkJveVwiLCBcIkJveVwiLCBcIkdpcmxcIiwgXCJHaXJsXCIsIOKAplxuJCBnZW5lcmFsX2hlYWx0aCAgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJIZWFsdGh5XCIsIFwiSGVhbHRoeVwiLCBcIkhlYWx0aHlcIiwgXCJIZWFsdGh5XCIsIFwiSGVhbHRoeVwiLCBcIkhlYWx0aHlcIizigKZcbiQgZ2VuZXJhbF9oZWFsdGhfMDEgICAgICAgICAgICAgICAgICAgIDxkYmw+IDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDAsIDEsIDAs4oCmXG4kIHRvb3RoYnJ1c2hpbmdfZnJlcXVlbmN5ICAgICAgICAgICAgICA8Y2hyPiBcIkluIG1vcm5pbmdzIG9yIGxlc3MgdGhhbiBvbmNlXCIsIFwiTmV2ZXJcIiwgXCJUd2ljZSBkYWlseSBhbmQgbW9yZVwiLOKAplxuJCB0b290aHBhc3RlICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJGbHVvcmlkZVwiLCBcIkZsdW9yaWRlXCIsIFwiRmx1b3JpZGVcIiwgXCJMb3cgRmx1b3JpZGVcIiwgXCJMb3cgRmx1b3JpZGXigKZcbiQgaW1wcm92ZW1lbnRfaHlnaWVuZSAgICAgICAgICAgICAgICAgIDxjaHI+IFwiWWVzXCIsIFwiTm9cIiwgXCJZZXNcIiwgXCJOb1wiLCBcIk5vXCIsIFwiWWVzXCIsIFwiTm9cIiwgXCJZZXNcIiwgXCJOb1wiLCBcIlllc1wiLCDigKZcbiQgdG9vdGhwYXN0ZV9pbXByb3ZlbWVudCAgICAgICAgICAgICAgIDxjaHI+IFwiRmx1b3JpZGUgWWVzXCIsIFwiRmx1b3JpZGUgTm9cIiwgXCJGbHVvcmlkZSBZZXNcIiwgXCJMb3cgRmx1b3JpZGUgTm9cIizigKZcbiQgdG9vdGhwYXN0ZV9pbXByb3ZlbWVudF9mb3JhbmFseXNpcyAgIDxjaHI+IFwiRmx1b3JpZGUgWWVzXCIsIFwiRmx1b3JpZGUgTm9cIiwgXCJGbHVvcmlkZSBZZXNcIiwgXCJMb3cgRmx1b3JpZGVcIiwgXCJM4oCmXG4kIGh5Z2llbmVfY29tYmluZWQgICAgICAgICAgICAgICAgICAgICA8Y2hyPiBcIkluIG1vcm5pbmdzIG9yIGxlc3MgdGhhbiBvbmNlIEZsdW9yaWRlIFllc1wiLCBcIk5ldmVyIEZsdW9yaWRlIE5vXCLigKZcbiQgaHlnaWVuZV9jb21iaW5lZF9mb3JhbmFseXNpcyAgICAgICAgIDxjaHI+IFwiTGVzcyB0aGFuIG9uY2UgcGVyIGRheSBhbmQvb3Igbm8gZmx1b3JpZGVcIiwgXCJMZXNzIHRoYW4gb25jZSBwZXIg4oCmXG4kIHN1Z2FyX2xpcXVpZCAgICAgICAgICAgICAgICAgICAgICAgICA8Y2hyPiBcIk5vXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiTm9cIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJOb1wi4oCmXG4kIGxpcXVpZF9zdWdhcl9pbXByb3ZlbWVudCAgICAgICAgICAgICA8Y2hyPiBcIk5vIE5vXCIsIFwiWWVzIFllc1wiLCBcIlllcyBOb1wiLCBcIlllcyBOb1wiLCBcIlllcyBOb1wiLCBcIk5vIFllc1wiLCBcIlllcyDigKZcbiQgbGlxdWlkX3N1Z2FyX2ltcHJvdmVtZW50X2ZvcmFuYWx5c2lzIDxjaHI+IFwiTm8gTm9cIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJObyBZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXPigKZcbiQgc3VnYXJfc29saWQgICAgICAgICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiTm9cIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZeKAplxuJCBzd2VldHNfaW1wcm92ZW1lbnQgICAgICAgICAgICAgICAgICAgPGNocj4gXCJZZXMgTm9cIiwgXCJZZXMgWWVzXCIsIFwiWWVzIE5vXCIsIFwiTm8gTm9cIiwgXCJZZXMgTm9cIiwgXCJZZXMgWWVzXCIsIFwiWWVz4oCmXG4kIHN3ZWV0c19pbXByb3ZlbWVudF9mb3JhbmFseXNpcyAgICAgICA8Y2hyPiBcIlllc1wiLCBcIlllc1wiLCBcIlllc1wiLCBcIk5vIE5vXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIOKAplxuJCBpbXJvdmVtZW50X2RpZXQgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJOb1wiLCBcIlllc1wiLCBcIk5vXCIsIFwiTm9cIiwgXCJOb1wiLCBcIlllc1wiLCBcIk5vXCIsIFwiTm9cIiwgXCJOb1wiLCBcIk5vXCIsIFwiTm/igKZcbiQgZGlldF9jb21iaW5lZCAgICAgICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiTm8gTm8gWWVzXCIsIFwiWWVzIFllc1wiLCBcIlllcyBZZXNcIiwgXCJZZXMgTm8gTm9cIiwgXCJZZXMgWWVzXCIsIFwiTm8gWWXigKZcbiQgZGlldF9jb21iaW5lZF9mb3JhbmFseXNpcyAgICAgICAgICAgIDxjaHI+IFwiTm8gc3VnYXIgUmVjZW50bHlcIiwgXCJTd2VldCBkcmlua3MgYW5kL29yIHN3ZWV0c1wiLCBcIlN3ZWV0IGRyaW5rcyDigKZcbiQgcGxhcXVlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiTm9cIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJOb1wiLCBcIk5vXCIsIFwiTm9cIiwgXCJOb1wiLCDigKZcbiQgYm90dGxlX2ZlZWRpbmcgICAgICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiTm9cIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJOb1wiLCBcIlllc1wiLCBcIk5vXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiTm9cIizigKZcbiQgYnJlYXN0ZmVlZG9uZyAgICAgICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiMzBcIiwgXCIxNVwiLCBOQSwgTkEsIFwiMjRcIiwgXCIzNFwiLCBcIjRcIiwgXCIyMFwiLCBcIjE2XCIsIFwiMTNcIiwgXCJiYXJvXCIsIFwiM+KAplxuJCBicmVhc3RmZWVkaW5nX2NvZGUgICAgICAgICAgICAgICAgICAgPGNocj4gXCI+MjRcIiwgXCI+MTJcIiwgXCI8NlwiLCBcIjw2XCIsIFwiPjI0XCIsIFwiPjI0XCIsIFwiPDZcIiwgXCI+MTJcIiwgXCI+MTJcIiwgXCI+MTJcIuKAplxuJCBtb3V0aF9icmVhdGhpbmcgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJZZXNcIiwgXCJOb1wiLCBcIk5vXCIsIFwiTm9cIiwgXCJOb1wiLCBcIk5vXCIsIFwiTm9cIiwgXCJOb1wiLCBcIlllc1wiLCBcIk5vXCIsIFwiTm/igKZcbiQgZWNjICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWeKAplxuIn0= -->
-<pre><code>Rows: 271
+<!-- rnb-output-begin eyJkYXRhIjoiUm93czogMjY2XG5Db2x1bW5zOiAyOVxuJCBwYXJlbnRhbF9icnVzaGluZyAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJTZWxkb20gb3IgbmV2ZXJcIiwgXCJFdmVyeSBuaWdodFwiLCBcIlNlbGRvbSBvciBuZXZlclwiLCBcIk/igKZcbiQgZGVudGFsX2h5Z2llbmlzdF9hdHRlbmRhbmNlICAgICAgICAgIDxjaHI+IFwiPjJcIiwgXCIxXCIsIFwiMVwiLCBcIj4yXCIsIFwiPjJcIiwgXCI+MlwiLCBcIjBcIiwgXCIwXCIsIFwiMVwiLCBcIjBcIiwgXCLigKZcbiQgZGVudGlzdF9hdHRlbmRhbmNlICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiPjJcIiwgXCI+MlwiLCBcIjBcIiwgXCI+MlwiLCBcIjFcIiwgXCI+MlwiLCBcIj4yXCIsIFwiPjJcIiwgXCI+MlwiLCBcIjBcIuKAplxuJCBhZ2UgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRibD4gMCwgNCwgMiwgMiwgNSwgMywgMCwgMCwgMiwgMywgMSwgNCwgMiwgMywgNCwgNSwgMCwgNSwgM+KAplxuJCBnZW5kZXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJCb3lcIiwgXCJCb3lcIiwgXCJCb3lcIiwgXCJCb3lcIiwgXCJCb3lcIiwgXCJCb3lcIiwgXCJCb3lcIiwgXCJHaXJsXCLigKZcbiQgZ2VuZXJhbF9oZWFsdGggICAgICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiSGVhbHRoeVwiLCBcIkhlYWx0aHlcIiwgXCJIZWFsdGh5XCIsIFwiSGVhbHRoeVwiLCBcIkhlYWx0aHlcIiwg4oCmXG4kIGdlbmVyYWxfaGVhbHRoXzAxICAgICAgICAgICAgICAgICAgICA8ZGJsPiAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAwLCAw4oCmXG4kIHRvb3RoYnJ1c2hpbmdfZnJlcXVlbmN5ICAgICAgICAgICAgICA8Y2hyPiBcIkluIG1vcm5pbmdzIG9yIGxlc3MgdGhhbiBvbmNlXCIsIFwiTmV2ZXJcIiwgXCJUd2ljZSBkYWlseSDigKZcbiQgdG9vdGhwYXN0ZSAgICAgICAgICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiRmx1b3JpZGVcIiwgXCJGbHVvcmlkZVwiLCBcIkZsdW9yaWRlXCIsIFwiTG93IEZsdW9yaWRlXCIsIFwiTG/igKZcbiQgaW1wcm92ZW1lbnRfaHlnaWVuZSAgICAgICAgICAgICAgICAgIDxjaHI+IFwiWWVzXCIsIFwiTm9cIiwgXCJZZXNcIiwgXCJOb1wiLCBcIk5vXCIsIFwiWWVzXCIsIFwiTm9cIiwgXCJZZXNcIiwgXCJOb+KAplxuJCB0b290aHBhc3RlX2ltcHJvdmVtZW50ICAgICAgICAgICAgICAgPGNocj4gXCJGbHVvcmlkZSBZZXNcIiwgXCJGbHVvcmlkZSBOb1wiLCBcIkZsdW9yaWRlIFllc1wiLCBcIkxvdyBGbHXigKZcbiQgdG9vdGhwYXN0ZV9pbXByb3ZlbWVudF9mb3JhbmFseXNpcyAgIDxjaHI+IFwiRmx1b3JpZGUgWWVzXCIsIFwiRmx1b3JpZGUgTm9cIiwgXCJGbHVvcmlkZSBZZXNcIiwgXCJMb3cgRmx14oCmXG4kIGh5Z2llbmVfY29tYmluZWQgICAgICAgICAgICAgICAgICAgICA8Y2hyPiBcIkluIG1vcm5pbmdzIG9yIGxlc3MgdGhhbiBvbmNlIEZsdW9yaWRlIFllc1wiLCBcIk5ldmVyIEZs4oCmXG4kIGh5Z2llbmVfY29tYmluZWRfZm9yYW5hbHlzaXMgICAgICAgICA8Y2hyPiBcIkxlc3MgdGhhbiBvbmNlIHBlciBkYXkgYW5kL29yIG5vIGZsdW9yaWRlXCIsIFwiTGVzcyB0aGFu4oCmXG4kIHN1Z2FyX2xpcXVpZCAgICAgICAgICAgICAgICAgICAgICAgICA8Y2hyPiBcIk5vXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiTm9cIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCLigKZcbiQgbGlxdWlkX3N1Z2FyX2ltcHJvdmVtZW50ICAgICAgICAgICAgIDxjaHI+IFwiTm8gTm9cIiwgXCJZZXMgWWVzXCIsIFwiWWVzIE5vXCIsIFwiWWVzIE5vXCIsIFwiWWVzIE5vXCIsIFwiTm8gWeKAplxuJCBsaXF1aWRfc3VnYXJfaW1wcm92ZW1lbnRfZm9yYW5hbHlzaXMgPGNocj4gXCJObyBOb1wiLCBcIlllc1wiLCBcIlllc1wiLCBcIlllc1wiLCBcIlllc1wiLCBcIk5vIFllc1wiLCBcIlllc1wiLCBcIuKAplxuJCBzdWdhcl9zb2xpZCAgICAgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJOb1wiLCBcIlllc1wiLCBcIlllc1wiLCBcIlllc1wiLCBcIlllc1wiLCDigKZcbiQgc3dlZXRzX2ltcHJvdmVtZW50ICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiWWVzIE5vXCIsIFwiWWVzIFllc1wiLCBcIlllcyBOb1wiLCBcIk5vIE5vXCIsIFwiWWVzIE5vXCIsIFwiWWVzIOKAplxuJCBzd2VldHNfaW1wcm92ZW1lbnRfZm9yYW5hbHlzaXMgICAgICAgPGNocj4gXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJObyBOb1wiLCBcIlllc1wiLCBcIlllc1wiLCBcIlllc1wiLCBcIlllc+KAplxuJCBpbXJvdmVtZW50X2RpZXQgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJOb1wiLCBcIlllc1wiLCBcIk5vXCIsIFwiTm9cIiwgXCJOb1wiLCBcIlllc1wiLCBcIk5vXCIsIFwiTm9cIiwgXCJOb1wiLOKAplxuJCBkaWV0X2NvbWJpbmVkICAgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJObyBObyBZZXNcIiwgXCJZZXMgWWVzXCIsIFwiWWVzIFllc1wiLCBcIlllcyBObyBOb1wiLCBcIlllcyBZZeKAplxuJCBkaWV0X2NvbWJpbmVkX2ZvcmFuYWx5c2lzICAgICAgICAgICAgPGNocj4gXCJObyBzdWdhciBSZWNlbnRseVwiLCBcIlN3ZWV0IGRyaW5rcyBhbmQvb3Igc3dlZXRzXCIsIFwiU3dl4oCmXG4kIHBsYXF1ZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8Y2hyPiBcIk5vXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiWWVzXCIsIFwiTm9cIiwgXCJOb1wiLCBcIk7igKZcbiQgYm90dGxlX2ZlZWRpbmcgICAgICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiTm9cIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJOb1wiLCBcIlllc1wiLCBcIk5vXCIsIFwiWWVzXCIsIFwiWeKAplxuJCBicmVhc3RmZWVkb25nICAgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCIzMFwiLCBcIjE1XCIsIE5BLCBOQSwgXCIyNFwiLCBcIjM0XCIsIFwiNFwiLCBcIjIwXCIsIFwiMTZcIiwgXCIxM1wiLCDigKZcbiQgYnJlYXN0ZmVlZGluZ19jb2RlICAgICAgICAgICAgICAgICAgIDxjaHI+IFwiPjI0XCIsIFwiPjEyXCIsIFwiPDZcIiwgXCI8NlwiLCBcIj4yNFwiLCBcIj4yNFwiLCBcIjw2XCIsIFwiPjEyXCIsIFwiPuKAplxuJCBtb3V0aF9icmVhdGhpbmcgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJZZXNcIiwgXCJOb1wiLCBcIk5vXCIsIFwiTm9cIiwgXCJOb1wiLCBcIk5vXCIsIFwiTm9cIiwgXCJOb1wiLCBcIlllc1wiLOKAplxuJCBlY2MgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGNocj4gXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIiwgXCJZZXNcIizigKZcbiJ9 -->
+<pre><code>Rows: 266
 Columns: 29
-$ parental_brushing                    &lt;chr&gt; &quot;Seldom or never&quot;, &quot;Every night&quot;, &quot;Seldom or never&quot;, &quot;Occasionall…
-$ dental_hygienist_attendance          &lt;chr&gt; &quot;&gt;2&quot;, &quot;1&quot;, &quot;1&quot;, &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;0&quot;, &quot;0&quot;, &quot;1&quot;, &quot;0&quot;, &quot;0&quot;, &quot;0&quot;, &quot;…
-$ dentist_attendance                   &lt;chr&gt; &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;0&quot;, &quot;&gt;2&quot;, &quot;1&quot;, &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;0&quot;, &quot;&gt;2&quot;, &quot;1…
-$ age                                  &lt;dbl&gt; 0, 4, 2, 2, 5, 3, 0, 0, 2, 3, 1, 4, 2, 3, 4, 5, 6, 0, 5, 3, 3, 0,…
-$ gender                               &lt;chr&gt; &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Girl&quot;, &quot;Girl&quot;, …
-$ general_health                       &lt;chr&gt; &quot;Healthy&quot;, &quot;Healthy&quot;, &quot;Healthy&quot;, &quot;Healthy&quot;, &quot;Healthy&quot;, &quot;Healthy&quot;,…
-$ general_health_01                    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0,…
-$ toothbrushing_frequency              &lt;chr&gt; &quot;In mornings or less than once&quot;, &quot;Never&quot;, &quot;Twice daily and more&quot;,…
-$ toothpaste                           &lt;chr&gt; &quot;Fluoride&quot;, &quot;Fluoride&quot;, &quot;Fluoride&quot;, &quot;Low Fluoride&quot;, &quot;Low Fluoride…
-$ improvement_hygiene                  &lt;chr&gt; &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, …
-$ toothpaste_improvement               &lt;chr&gt; &quot;Fluoride Yes&quot;, &quot;Fluoride No&quot;, &quot;Fluoride Yes&quot;, &quot;Low Fluoride No&quot;,…
-$ toothpaste_improvement_foranalysis   &lt;chr&gt; &quot;Fluoride Yes&quot;, &quot;Fluoride No&quot;, &quot;Fluoride Yes&quot;, &quot;Low Fluoride&quot;, &quot;L…
-$ hygiene_combined                     &lt;chr&gt; &quot;In mornings or less than once Fluoride Yes&quot;, &quot;Never Fluoride No&quot;…
-$ hygiene_combined_foranalysis         &lt;chr&gt; &quot;Less than once per day and/or no fluoride&quot;, &quot;Less than once per …
-$ sugar_liquid                         &lt;chr&gt; &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;…
-$ liquid_sugar_improvement             &lt;chr&gt; &quot;No No&quot;, &quot;Yes Yes&quot;, &quot;Yes No&quot;, &quot;Yes No&quot;, &quot;Yes No&quot;, &quot;No Yes&quot;, &quot;Yes …
-$ liquid_sugar_improvement_foranalysis &lt;chr&gt; &quot;No No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes…
-$ sugar_solid                          &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Ye…
-$ sweets_improvement                   &lt;chr&gt; &quot;Yes No&quot;, &quot;Yes Yes&quot;, &quot;Yes No&quot;, &quot;No No&quot;, &quot;Yes No&quot;, &quot;Yes Yes&quot;, &quot;Yes…
-$ sweets_improvement_foranalysis       &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, …
-$ imrovement_diet                      &lt;chr&gt; &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No…
-$ diet_combined                        &lt;chr&gt; &quot;No No Yes&quot;, &quot;Yes Yes&quot;, &quot;Yes Yes&quot;, &quot;Yes No No&quot;, &quot;Yes Yes&quot;, &quot;No Ye…
-$ diet_combined_foranalysis            &lt;chr&gt; &quot;No sugar Recently&quot;, &quot;Sweet drinks and/or sweets&quot;, &quot;Sweet drinks …
-$ plaque                               &lt;chr&gt; &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, …
-$ bottle_feeding                       &lt;chr&gt; &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;,…
-$ breastfeedong                        &lt;chr&gt; &quot;30&quot;, &quot;15&quot;, NA, NA, &quot;24&quot;, &quot;34&quot;, &quot;4&quot;, &quot;20&quot;, &quot;16&quot;, &quot;13&quot;, &quot;baro&quot;, &quot;3…
-$ breastfeeding_code                   &lt;chr&gt; &quot;&gt;24&quot;, &quot;&gt;12&quot;, &quot;&lt;6&quot;, &quot;&lt;6&quot;, &quot;&gt;24&quot;, &quot;&gt;24&quot;, &quot;&lt;6&quot;, &quot;&gt;12&quot;, &quot;&gt;12&quot;, &quot;&gt;12&quot;…
-$ mouth_breathing                      &lt;chr&gt; &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No…
-$ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Y…</code></pre>
+$ parental_brushing                    &lt;chr&gt; &quot;Seldom or never&quot;, &quot;Every night&quot;, &quot;Seldom or never&quot;, &quot;O…
+$ dental_hygienist_attendance          &lt;chr&gt; &quot;&gt;2&quot;, &quot;1&quot;, &quot;1&quot;, &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;0&quot;, &quot;0&quot;, &quot;1&quot;, &quot;0&quot;, &quot;…
+$ dentist_attendance                   &lt;chr&gt; &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;0&quot;, &quot;&gt;2&quot;, &quot;1&quot;, &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;&gt;2&quot;, &quot;0&quot;…
+$ age                                  &lt;dbl&gt; 0, 4, 2, 2, 5, 3, 0, 0, 2, 3, 1, 4, 2, 3, 4, 5, 0, 5, 3…
+$ gender                               &lt;chr&gt; &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Boy&quot;, &quot;Girl&quot;…
+$ general_health                       &lt;chr&gt; &quot;Healthy&quot;, &quot;Healthy&quot;, &quot;Healthy&quot;, &quot;Healthy&quot;, &quot;Healthy&quot;, …
+$ general_health_01                    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+$ toothbrushing_frequency              &lt;chr&gt; &quot;In mornings or less than once&quot;, &quot;Never&quot;, &quot;Twice daily …
+$ toothpaste                           &lt;chr&gt; &quot;Fluoride&quot;, &quot;Fluoride&quot;, &quot;Fluoride&quot;, &quot;Low Fluoride&quot;, &quot;Lo…
+$ improvement_hygiene                  &lt;chr&gt; &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No…
+$ toothpaste_improvement               &lt;chr&gt; &quot;Fluoride Yes&quot;, &quot;Fluoride No&quot;, &quot;Fluoride Yes&quot;, &quot;Low Flu…
+$ toothpaste_improvement_foranalysis   &lt;chr&gt; &quot;Fluoride Yes&quot;, &quot;Fluoride No&quot;, &quot;Fluoride Yes&quot;, &quot;Low Flu…
+$ hygiene_combined                     &lt;chr&gt; &quot;In mornings or less than once Fluoride Yes&quot;, &quot;Never Fl…
+$ hygiene_combined_foranalysis         &lt;chr&gt; &quot;Less than once per day and/or no fluoride&quot;, &quot;Less than…
+$ sugar_liquid                         &lt;chr&gt; &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;…
+$ liquid_sugar_improvement             &lt;chr&gt; &quot;No No&quot;, &quot;Yes Yes&quot;, &quot;Yes No&quot;, &quot;Yes No&quot;, &quot;Yes No&quot;, &quot;No Y…
+$ liquid_sugar_improvement_foranalysis &lt;chr&gt; &quot;No No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No Yes&quot;, &quot;Yes&quot;, &quot;…
+$ sugar_solid                          &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, …
+$ sweets_improvement                   &lt;chr&gt; &quot;Yes No&quot;, &quot;Yes Yes&quot;, &quot;Yes No&quot;, &quot;No No&quot;, &quot;Yes No&quot;, &quot;Yes …
+$ sweets_improvement_foranalysis       &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes…
+$ imrovement_diet                      &lt;chr&gt; &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;,…
+$ diet_combined                        &lt;chr&gt; &quot;No No Yes&quot;, &quot;Yes Yes&quot;, &quot;Yes Yes&quot;, &quot;Yes No No&quot;, &quot;Yes Ye…
+$ diet_combined_foranalysis            &lt;chr&gt; &quot;No sugar Recently&quot;, &quot;Sweet drinks and/or sweets&quot;, &quot;Swe…
+$ plaque                               &lt;chr&gt; &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;N…
+$ bottle_feeding                       &lt;chr&gt; &quot;No&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;Yes&quot;, &quot;Y…
+$ breastfeedong                        &lt;chr&gt; &quot;30&quot;, &quot;15&quot;, NA, NA, &quot;24&quot;, &quot;34&quot;, &quot;4&quot;, &quot;20&quot;, &quot;16&quot;, &quot;13&quot;, …
+$ breastfeeding_code                   &lt;chr&gt; &quot;&gt;24&quot;, &quot;&gt;12&quot;, &quot;&lt;6&quot;, &quot;&lt;6&quot;, &quot;&gt;24&quot;, &quot;&gt;24&quot;, &quot;&lt;6&quot;, &quot;&gt;12&quot;, &quot;&gt;…
+$ mouth_breathing                      &lt;chr&gt; &quot;Yes&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;No&quot;, &quot;Yes&quot;,…
+$ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;Yes&quot;,…</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Cases and controls</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudGFibGUoZWNjJGVjYylcbmBgYCJ9 -->
-<pre class="r"><code>table(ecc$ecc)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG4gTm8gWWVzIFxuMTE1IDE1NiBcbiJ9 -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG4gTm8gWWVzIFxuMTEzIDE1MyBcbiJ9 -->
 <pre><code>
  No Yes 
-115 156 </code></pre>
+113 153 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1889,25 +1861,15 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
 <h2>Table 1</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZWNjICU+JVxuICBcbiAgc2VsZWN0KGFnZSwgZ2VuZGVyLCBlY2MpICU+JVxuICBndHN1bW1hcnk6OnRibF9zdW1tYXJ5KFxuICAgIGJ5ID0gZ2VuZGVyLFxuICAgIHR5cGUgPSBcImFnZVwiIH4gXCJjb250aW51b3VzMlwiLCBcbiAgICBzdGF0aXN0aWMgPSBhbGxfY29udGludW91cygpIH4gXCJ7bWVhbn0gKHtzZH0pXCJcbiAgKVxuYGBgIn0= -->
-<pre class="r"><code>ecc %&gt;%
-  
-  select(age, gender, ecc) %&gt;%
-  gtsummary::tbl_summary(
-    by = gender,
-    type = &quot;age&quot; ~ &quot;continuous2&quot;, 
-    statistic = all_continuous() ~ &quot;{mean} ({sd})&quot;
-  )</code></pre>
-<!-- rnb-source-end -->
 
 <!-- rnb-html-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNoaW55LnRhZyJdLCJzaXppbmdQb2xpY3kiOltdfX0= -->
 
-<div id="jeqalbaqhp" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="tysutdsfgl" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
   <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#jeqalbaqhp .gt_table {
+#tysutdsfgl .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -1932,7 +1894,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   border-left-color: #D3D3D3;
 }
 
-#jeqalbaqhp .gt_heading {
+#tysutdsfgl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1944,7 +1906,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   border-right-color: #D3D3D3;
 }
 
-#jeqalbaqhp .gt_title {
+#tysutdsfgl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1954,7 +1916,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   border-bottom-width: 0;
 }
 
-#jeqalbaqhp .gt_subtitle {
+#tysutdsfgl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1964,13 +1926,13 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   border-top-width: 0;
 }
 
-#jeqalbaqhp .gt_bottom_border {
+#tysutdsfgl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#jeqalbaqhp .gt_col_headings {
+#tysutdsfgl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1985,7 +1947,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   border-right-color: #D3D3D3;
 }
 
-#jeqalbaqhp .gt_col_heading {
+#tysutdsfgl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2005,7 +1967,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   overflow-x: hidden;
 }
 
-#jeqalbaqhp .gt_column_spanner_outer {
+#tysutdsfgl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2017,15 +1979,15 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   padding-right: 4px;
 }
 
-#jeqalbaqhp .gt_column_spanner_outer:first-child {
+#tysutdsfgl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#jeqalbaqhp .gt_column_spanner_outer:last-child {
+#tysutdsfgl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#jeqalbaqhp .gt_column_spanner {
+#tysutdsfgl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2037,7 +1999,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   width: 100%;
 }
 
-#jeqalbaqhp .gt_group_heading {
+#tysutdsfgl .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2059,7 +2021,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   vertical-align: middle;
 }
 
-#jeqalbaqhp .gt_empty_group_heading {
+#tysutdsfgl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2074,15 +2036,15 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   vertical-align: middle;
 }
 
-#jeqalbaqhp .gt_from_md > :first-child {
+#tysutdsfgl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#jeqalbaqhp .gt_from_md > :last-child {
+#tysutdsfgl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#jeqalbaqhp .gt_row {
+#tysutdsfgl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2101,7 +2063,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   overflow-x: hidden;
 }
 
-#jeqalbaqhp .gt_stub {
+#tysutdsfgl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2113,7 +2075,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   padding-left: 12px;
 }
 
-#jeqalbaqhp .gt_summary_row {
+#tysutdsfgl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2123,7 +2085,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   padding-right: 5px;
 }
 
-#jeqalbaqhp .gt_first_summary_row {
+#tysutdsfgl .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2133,7 +2095,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   border-top-color: #D3D3D3;
 }
 
-#jeqalbaqhp .gt_grand_summary_row {
+#tysutdsfgl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2143,7 +2105,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   padding-right: 5px;
 }
 
-#jeqalbaqhp .gt_first_grand_summary_row {
+#tysutdsfgl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2153,11 +2115,11 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   border-top-color: #D3D3D3;
 }
 
-#jeqalbaqhp .gt_striped {
+#tysutdsfgl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#jeqalbaqhp .gt_table_body {
+#tysutdsfgl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2166,7 +2128,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   border-bottom-color: #D3D3D3;
 }
 
-#jeqalbaqhp .gt_footnotes {
+#tysutdsfgl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2180,13 +2142,13 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   border-right-color: #D3D3D3;
 }
 
-#jeqalbaqhp .gt_footnote {
+#tysutdsfgl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#jeqalbaqhp .gt_sourcenotes {
+#tysutdsfgl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2200,41 +2162,41 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   border-right-color: #D3D3D3;
 }
 
-#jeqalbaqhp .gt_sourcenote {
+#tysutdsfgl .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#jeqalbaqhp .gt_left {
+#tysutdsfgl .gt_left {
   text-align: left;
 }
 
-#jeqalbaqhp .gt_center {
+#tysutdsfgl .gt_center {
   text-align: center;
 }
 
-#jeqalbaqhp .gt_right {
+#tysutdsfgl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#jeqalbaqhp .gt_font_normal {
+#tysutdsfgl .gt_font_normal {
   font-weight: normal;
 }
 
-#jeqalbaqhp .gt_font_bold {
+#tysutdsfgl .gt_font_bold {
   font-weight: bold;
 }
 
-#jeqalbaqhp .gt_font_italic {
+#tysutdsfgl .gt_font_italic {
   font-style: italic;
 }
 
-#jeqalbaqhp .gt_super {
+#tysutdsfgl .gt_super {
   font-size: 65%;
 }
 
-#jeqalbaqhp .gt_footnote_marks {
+#tysutdsfgl .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -2245,7 +2207,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1"><strong>Characteristic</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Boy</strong>, N = 148</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Boy</strong>, N = 143</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1"><strong>Girl</strong>, N = 123</th>
     </tr>
   </thead>
@@ -2254,10 +2216,10 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
 <td class="gt_row gt_center"></td>
 <td class="gt_row gt_center"></td></tr>
     <tr><td class="gt_row gt_left" style="text-align: left; text-indent: 10px;">Mean (SD)</td>
-<td class="gt_row gt_center">3.33 (1.46)</td>
+<td class="gt_row gt_center">3.23 (1.38)</td>
 <td class="gt_row gt_center">2.93 (1.38)</td></tr>
     <tr><td class="gt_row gt_left">ecc</td>
-<td class="gt_row gt_center">89 (60%)</td>
+<td class="gt_row gt_center">86 (60%)</td>
 <td class="gt_row gt_center">67 (54%)</td></tr>
   </tbody>
   
@@ -2272,32 +2234,26 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZWNjIDwtIGVjYyAlPiUgXG4gIG11dGF0ZShlY2MyID0gY2FzZV93aGVuKFxuICAgIGVjYyA9PSBcIlllc1wiIH4gXCIxXCIsIFxuICAgIFRSVUUgfiBcIjBcIlxuICApKSAlPiUgXG4gIG11dGF0ZShlY2MyID0gYXMuaW50ZWdlcihlY2MyKSkgXG5gYGAifQ== -->
-<pre class="r"><code>ecc &lt;- ecc %&gt;% 
-  mutate(ecc2 = case_when(
-    ecc == &quot;Yes&quot; ~ &quot;1&quot;, 
-    TRUE ~ &quot;0&quot;
-  )) %&gt;% 
-  mutate(ecc2 = as.integer(ecc2)) </code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZWNjICU+JSBcbiAgamFuaXRvcjo6dGFieWwoZWNjMikgJT4lIFxuICBqYW5pdG9yOjphZG9ybl9wY3RfZm9ybWF0dGluZygpXG5gYGAifQ== -->
-<pre class="r"><code>ecc %&gt;% 
-  janitor::tabyl(ecc2) %&gt;% 
-  janitor::adorn_pct_formatting()</code></pre>
-<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiIGVjYzIgICBuIHBlcmNlbnRcbiAgICAwIDExMyAgIDQyLjUlXG4gICAgMSAxNTMgICA1Ny41JVxuIn0= -->
+<pre><code> ecc2   n percent
+    0 113   42.5%
+    1 153   57.5%</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZWNjICU+JSBcbiAgZ3JvdXBfYnkoZWNjKSAlPiUgXG4gIHN1bW1hcml6ZShtZWFuKGFnZSksIHNkKGFnZSkpXG5gYGAifQ== -->
-<pre class="r"><code>ecc %&gt;% 
-  group_by(ecc) %&gt;% 
-  summarize(mean(age), sd(age))</code></pre>
-<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIMOXIDMiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREbWl1QmlZR0JnWm1BQlFtWldJSk9CTlRURVRkZUNnWUdGQ2NoaEJBcHpndWdLb0NKaHNFb0dCZ0VnWm9KS01QbmxRMW5Na2FuRlFJb1BKT2pBMmJmenFNVHJPUTRjR21BQUU3Zi9hQ0Zjc21WRmpQMVA1NEJUbkdjMm85bkNtcGVZQ3paRUFPb21zTG1weWNsUUptZHVhbUtlUm1KNnFpWlVnTDA0QmNKRk5ZZXpLTDljRDJZV0w4amlCaUR4Ly8vL2YrZ1dKdWNrRnNNc2hBbHlwU1NXSk9xbEZRSDFBM25vV3RqekMwb3k4L09BbXBoQTRjR0twcG14Q0UyQXZ6UVA1SklVM2VTTTByeHNYVU9RQldCcENPQ0ZzcG1RMk13UUs1bitRNDFpaFJyRmxwcVhucG1YQ25ON1RtSlNhZzZVd3dmME1kakRlZ1ZGbVhrbE1KOEFSWXYxU3ZKTEVtSHF1Skx6YzJBaVlMOHgvQU1BVzExelJRWUNBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ecc"],"name":[1],"type":["chr"],"align":["left"]},{"label":["mean(age)"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sd(age)"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"No","2":"3.194690","3":"1.076190"},{"1":"Yes","2":"3.019608","3":"1.578934"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -2307,14 +2263,9 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
 <p>ecc for modelling</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubTEgPC1cbiAgZ2xtKFxuICAgIGVjYyB+IGFnZSArIGdlbmRlcixcbiAgICBkYXRhID0gZWNjLFxuICAgIGZhbWlseSA9IGJpbm9taWFsKClcbiAgKVxuYGBgIn0= -->
-<pre class="r"><code>m1 &lt;-
-  glm(
-    ecc ~ age + gender,
-    data = ecc,
-    family = binomial()
-  )</code></pre>
-<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gZXZhbChmYW1pbHkkaW5pdGlhbGl6ZSkgOiB5IHZhbHVlcyBtdXN0IGJlIDAgPD0geSA8PSAxXG4ifQ== -->
+<pre><code>Error in eval(family$initialize) : y values must be 0 &lt;= y &lt;= 1</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -2323,7 +2274,7 @@ $ ecc                                  &lt;chr&gt; &quot;Yes&quot;, &quot;Yes&qu
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2FzZS1jb250cm9sIGFuYWx5c2lzIHNjcmlwdCBFQ0MgUmlza3MgZmFjdG9ycyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyBHZW5lcmFsIHNldHVwIGFuZCBwYWNrYWdlcwoKYGBge3J9CmtuaXRyOjpvcHRzX2NodW5rJHNldCgKICBmaWcud2lkdGggPSAxMiwKICBmaWcuaGVpZ2h0ID0gOCwKICBmaWcucGF0aCA9ICdGaWdzLycsCiAgZWNobyA9IEZBTFNFLAogIGluY2x1ZGU9IFRSVUUsICAjIGZvciB0aGUgY2h1bmtzIHRvIGJlIGRpc3BsYXllZAogIHdhcm5pbmcgPSBGQUxTRSwKICBtZXNzYWdlID0gRkFMU0UsCiAgb3V0LndpZHRoID0gIjc1JSIKKSMgVXNlIGluY2x1ZGU9VFJVRSBmb3IgdGhlIGNodW5rcyB0byBiZSBkaXNwbGF5ZWQKYGBgCgpgYGB7cn0KcGFjbWFuOjpwX2xvYWQodGlkeXZlcnNlLCAKICAgICAgICAgICAgICAgdmlzZGF0LCAjIGZvciBOQXMKICAgICAgICAgICAgICAgdGFibGUxLCAKICAgICAgICAgICAgICAgamFuaXRvciwgICMgZm9yIGRhdGEgY2xlYW5pbmcKICAgICAgICAgICAgICAgc2pQbG90LCAgICMgZm9yIG1vZGVsIHZpcwogICAgICAgICAgICAgICBndHN1bW1hcnksICMgZm9yIHN1bW1hcnkgdGFibGVzCiAgICAgICAgICAgICAgIHBlcmZvcm1hbmNlICMgZm9yIHJlZ3Jlc3Npb24gZGlhZ25vc3RpYyBjaGVjawopCmBgYAoKIyBEYXRhc2V0CgpgYGB7cn0KZWNjIDwtIHJlYWRfY3N2KCJodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9zcHJlYWRzaGVldHMvZC9lLzJQQUNYLTF2UmFhbkIwRlV5Qi1OcklKcENfT3B4WjJFNmgzZ3NaNXNNNjVFLTVQRXZYeGV3MlVHZkJXWEFVMzhqR3d3X0drbFFDRFd5REo2M28tS05jL3B1Yj9naWQ9MCZzaW5nbGU9dHJ1ZSZvdXRwdXQ9Y3N2IikKYGBgCgojIyBEYXRhIGNsZWFuaW5nCgpgYGB7cn0KZWNjIDwtIGVjYyAlPiUgCiAgamFuaXRvcjo6Y2xlYW5fbmFtZXMoKSAlPiUgCiAgamFuaXRvcjo6cmVtb3ZlX2VtcHR5KHdoaWNoID0gYygicm93cyIsICJjb2xzIikpICU+JSAKICBzZWxlY3QoLWMoY29kZSwgCiAgICAgICAgICAgIHN5cnVwLCAKICAgICAgICAgICAgZXhhbWluYXRpb25fZGF0ZSwgCiAgICAgICAgICAgIGJpcnRoX2RhdGUpKQpgYGAKCiMgRXhwbG9yYXRvcnkgRGF0YSBBbmFseXNpcwoKYGBge3J9CmdsaW1wc2UoZWNjKQpgYGAKCkNhc2VzIGFuZCBjb250cm9scwoKYGBge3J9CnRhYmxlKGVjYyRlY2MpCmBgYAoKIyMgVGFibGUgMQoKYGBge3J9CmVjYyAlPiUKICAKICBzZWxlY3QoYWdlLCBnZW5kZXIsIGVjYykgJT4lCiAgZ3RzdW1tYXJ5Ojp0Ymxfc3VtbWFyeSgKICAgIGJ5ID0gZ2VuZGVyLAogICAgdHlwZSA9ICJhZ2UiIH4gImNvbnRpbnVvdXMyIiwgCiAgICBzdGF0aXN0aWMgPSBhbGxfY29udGludW91cygpIH4gInttZWFufSAoe3NkfSkiCiAgKQpgYGAKCgpgYGB7cn0KZWNjIDwtIGVjYyAlPiUgCiAgbXV0YXRlKGVjYzIgPSBjYXNlX3doZW4oCiAgICBlY2MgPT0gIlllcyIgfiAiMSIsIAogICAgVFJVRSB+ICIwIgogICkpICU+JSAKICBtdXRhdGUoZWNjMiA9IGFzLmludGVnZXIoZWNjMikpIApgYGAKCgpgYGB7cn0KZWNjICU+JSAKICBqYW5pdG9yOjp0YWJ5bChlY2MyKSAlPiUgCiAgamFuaXRvcjo6YWRvcm5fcGN0X2Zvcm1hdHRpbmcoKQpgYGAKCmBgYHtyfQplY2MgJT4lIAogIGdyb3VwX2J5KGVjYykgJT4lIAogIHN1bW1hcml6ZShtZWFuKGFnZSksIHNkKGFnZSkpCmBgYAoKCiMgUmlzayBmYWN0b3JzCgplY2MgZm9yIG1vZGVsbGluZwoKYGBge3J9Cm0xIDwtCiAgZ2xtKAogICAgZWNjIH4gYWdlICsgZ2VuZGVyLAogICAgZGF0YSA9IGVjYywKICAgIGZhbWlseSA9IGJpbm9taWFsKCkKICApCmBgYAoKIyBSaXNrIE1vZGVsCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiQ2FzZS1jb250cm9sIGFuYWx5c2lzIHNjcmlwdCBFQ0MgUmlza3MgZmFjdG9ycyIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKIyBHZW5lcmFsIHNldHVwIGFuZCBwYWNrYWdlcwoKYGBge3J9CmtuaXRyOjpvcHRzX2NodW5rJHNldCgKICBmaWcud2lkdGggPSAxMiwKICBmaWcuaGVpZ2h0ID0gOCwKICBmaWcucGF0aCA9ICdGaWdzLycsCiAgZWNobyA9IEZBTFNFLAogIGluY2x1ZGU9IFRSVUUsICAjIGZvciB0aGUgY2h1bmtzIHRvIGJlIGRpc3BsYXllZAogIHdhcm5pbmcgPSBGQUxTRSwKICBtZXNzYWdlID0gRkFMU0UsCiAgb3V0LndpZHRoID0gIjc1JSIKKSMgVXNlIGluY2x1ZGU9VFJVRSBmb3IgdGhlIGNodW5rcyB0byBiZSBkaXNwbGF5ZWQKYGBgCgpgYGB7cn0KcGFjbWFuOjpwX2xvYWQodGlkeXZlcnNlLCAKICAgICAgICAgICAgICAgdmlzZGF0LCAjIGZvciBOQXMKICAgICAgICAgICAgICAgdGFibGUxLCAKICAgICAgICAgICAgICAgamFuaXRvciwgICMgZm9yIGRhdGEgY2xlYW5pbmcKICAgICAgICAgICAgICAgc2pQbG90LCAgICMgZm9yIG1vZGVsIHZpcwogICAgICAgICAgICAgICBndHN1bW1hcnksICMgZm9yIHN1bW1hcnkgdGFibGVzCiAgICAgICAgICAgICAgIHBlcmZvcm1hbmNlICMgZm9yIHJlZ3Jlc3Npb24gZGlhZ25vc3RpYyBjaGVjawopCmBgYAoKIyBEYXRhc2V0CgpgYGB7cn0KZWNjIDwtIHJlYWRfY3N2KCJodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9zcHJlYWRzaGVldHMvZC9lLzJQQUNYLTF2UmFhbkIwRlV5Qi1OcklKcENfT3B4WjJFNmgzZ3NaNXNNNjVFLTVQRXZYeGV3MlVHZkJXWEFVMzhqR3d3X0drbFFDRFd5REo2M28tS05jL3B1Yj9naWQ9MCZzaW5nbGU9dHJ1ZSZvdXRwdXQ9Y3N2IikKYGBgCgojIyBEYXRhIGNsZWFuaW5nCgpgYGB7cn0KZWNjIDwtIGVjYyAlPiUgCiAgZmlsdGVyKEFnZSA8IDYpICU+JSAKICBqYW5pdG9yOjpjbGVhbl9uYW1lcygpICU+JSAKICBqYW5pdG9yOjpyZW1vdmVfZW1wdHkod2hpY2ggPSBjKCJyb3dzIiwgImNvbHMiKSkgJT4lIAogIHNlbGVjdCgtYyhjb2RlLCAKICAgICAgICAgICAgc3lydXAsIAogICAgICAgICAgICBleGFtaW5hdGlvbl9kYXRlLCAKICAgICAgICAgICAgYmlydGhfZGF0ZSkpCmBgYAoKIyBFeHBsb3JhdG9yeSBEYXRhIEFuYWx5c2lzCgpgYGB7cn0KZ2xpbXBzZShlY2MpCmBgYAoKQ2FzZXMgYW5kIGNvbnRyb2xzCgpgYGB7cn0KdGFibGUoZWNjJGVjYykKYGBgCgojIyBUYWJsZSAxCgpgYGB7cn0KZWNjICU+JQogIAogIHNlbGVjdChhZ2UsIGdlbmRlciwgZWNjKSAlPiUKICBndHN1bW1hcnk6OnRibF9zdW1tYXJ5KAogICAgYnkgPSBnZW5kZXIsCiAgICB0eXBlID0gImFnZSIgfiAiY29udGludW91czIiLCAKICAgIHN0YXRpc3RpYyA9IGFsbF9jb250aW51b3VzKCkgfiAie21lYW59ICh7c2R9KSIKICApCmBgYAoKCmBgYHtyfQplY2MgPC0gZWNjICU+JSAKICBtdXRhdGUoZWNjMiA9IGNhc2Vfd2hlbigKICAgIGVjYyA9PSAiWWVzIiB+ICIxIiwgCiAgICBUUlVFIH4gIjAiCiAgKSkgJT4lIAogIG11dGF0ZShlY2MyID0gYXMuaW50ZWdlcihlY2MyKSkgCmBgYAoKCmBgYHtyfQplY2MgJT4lIAogIGphbml0b3I6OnRhYnlsKGVjYzIpICU+JSAKICBqYW5pdG9yOjphZG9ybl9wY3RfZm9ybWF0dGluZygpCmBgYAoKYGBge3J9CmVjYyAlPiUgCiAgZ3JvdXBfYnkoZWNjKSAlPiUgCiAgc3VtbWFyaXplKG1lYW4oYWdlKSwgc2QoYWdlKSkKYGBgCgoKIyBSaXNrIGZhY3RvcnMKCmVjYyBmb3IgbW9kZWxsaW5nCgpgYGB7cn0KbTEgPC0KICBnbG0oCiAgICBlY2MyIH4gYWdlICsgZ2VuZGVyLAogICAgZGF0YSA9IGVjYywKICAgIGZhbWlseSA9IGJpbm9taWFsKCkKICApCmBgYAoKIyBSaXNrIE1vZGVsCg==</div>
 
 
 

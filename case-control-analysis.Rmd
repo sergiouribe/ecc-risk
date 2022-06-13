@@ -39,6 +39,7 @@ ecc <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRaanB0FUyB-NrI
 
 ```{r}
 ecc <- ecc %>% 
+  filter(Age < 6) %>% 
   janitor::clean_names() %>% 
   janitor::remove_empty(which = c("rows", "cols")) %>% 
   select(-c(code, 
@@ -103,7 +104,7 @@ ecc for modelling
 ```{r}
 m1 <-
   glm(
-    ecc ~ age + gender,
+    ecc2 ~ age + gender,
     data = ecc,
     family = binomial()
   )

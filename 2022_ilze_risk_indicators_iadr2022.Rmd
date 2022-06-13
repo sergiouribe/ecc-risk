@@ -69,6 +69,19 @@ ecc <- ecc %>%
   mutate(ecc2 = as.integer(ecc2)) 
 ```
 
+
+
+## Combine some variables
+
+```{r}
+ecc <- ecc %>% 
+  mutate(hygiene_combined_foranalysis = fct_collapse(hygiene_combined_foranalysis, 
+              "Twice daily and more low fluoride" = c("Twice daily and more Fluoride Recently", "Twice daily and more Fluoride Free") , 
+              "At least once per day F" = c("In evenings Fluoride Always", "Twice daily and more Fluoride Always")))
+```
+
+
+
 # EDA
 
 ```{r}
@@ -280,18 +293,28 @@ relevel for analysis
 
 ```{r}
 
-ecc <- ecc %>% 
-  mutate(hygiene_combined_foranalysis = fct_relevel(hygiene_combined_foranalysis, "Twice daily and more Fluoride Always",
-                                                    "Twice daily and more Fluoride Recently", 
-"Twice daily and more Fluoride Free", 
-"In evenings Fluoride Always", 
-"In evenings Fluoride Recently", 
-"In evenings Low Fluoride", 
-"Less than once per day and/or no fluoride"))
+ecc <- ecc %>%
+  mutate(
+    hygiene_combined_foranalysis = fct_relevel(
+      hygiene_combined_foranalysis,
+      "At least once per day F",
+      "Twice daily and more low fluoride",
+      "In evenings Fluoride Recently", 
+      "In evenings Low Fluoride", 
+      "Less than once per day and/or no fluoride"
+    )
+  ) 
 
 
 ```
 
+Hygienist
+
+```{r}
+ecc <- ecc %>% 
+  mutate(dental_hygienist_attendance = fct_collapse(dental_hygienist_attendance,
+                                                    "Regular" =  c("Regular twice year", ">2")))
+```
 
 
 
