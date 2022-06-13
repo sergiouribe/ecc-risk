@@ -30,8 +30,9 @@ Packages
 pacman::p_load(tidyverse, 
                visdat, # for NAs
                table1, 
+               expss, # to change labels
                janitor,  # for data cleaning
-               sjPlot,   # for model vis
+               sjPlot,   # for model visualization
                gtsummary, # for summary tables
                performance # for regression diagnostic check
 )
@@ -145,6 +146,75 @@ table1::table1(
   data = ecc
   )
 ```
+## Table 1 gtsummary (sergio)
+
+### Modify labels
+
+```{r}
+# the labels to change
+
+ecc <- expss::apply_labels(
+  ecc,
+  "age" = "Age",
+  "gender" = "Gender ",
+  "parental_brushing" = "Parents brush teeth ",
+  "toothbrushing_frequency" = "Tooth brushing frecuency",
+  "toothpaste" = "F Toothpaste use",
+  "hygiene_combined_foranalysis" = "Toothbrushing (Frequency and F) ",
+  "sugar_liquid" = "Consumes sugary liquids",
+  "sugar_solid" = "Consumes sugary solids",
+  "imrovement_diet" = "Change in the last 12 months towards healthy dietary habits ",
+  "diet_combined_foranalysis" = "Dietary habits ",
+  "plaque" = "Plaque presence",
+  "bottle_feeding" = "Bottle feeding ",
+  "breastfeeding_code" = "Breastfeeding ",
+  "mouth_breathing" = "Mouth breathing"
+)
+```
+
+
+## REMOVE ALL CHILDREN > 6 YEARS OLD
+
+```{r}
+ecc <- ecc %>% 
+  filter(age < 6)
+```
+
+
+
+
+### The table one with gtsummary
+```{r}
+ecc %>%
+
+  mutate(ecc = fct_recode(ecc, "Caries free" = "No",
+                          "ECC" = "Yes")) %>%
+  select(
+    age ,
+    gender ,
+    parental_brushing ,
+    toothbrushing_frequency ,
+    toothpaste ,
+    hygiene_combined_foranalysis ,
+    sugar_liquid ,
+    sugar_solid ,
+    imrovement_diet ,
+    diet_combined_foranalysis ,
+    plaque ,
+    bottle_feeding ,
+    breastfeeding_code ,
+    mouth_breathing,
+    ecc
+  ) %>%
+  gtsummary::tbl_summary(
+    by = ecc,
+    label = age ~ "Age"
+  ) %>%
+  gtsummary::bold_labels() %>%
+  gtsummary::add_overall() 
+```
+
+
 
 # Regression model
 
@@ -256,43 +326,15 @@ gtsummary::tbl_regression(m1, exponentiate = TRUE) %>%
 ```
 
 
-
 ```{r}
-m2 <-
-  glm(
-    ecc2 ~ parental_brushing + 
-      dental_hygienist_attendance + 
-      dentist_attendance +
-      age + 
-      gender + 
-      general_health_01 + 
-      toothbrushing_frequency +
-      toothpaste + 
+sjPlot::plot_model(m1) +
+  theme_light() + 
+  labs(title = "Regression model for ECC indicators") +
+  geom_hline(yintercept = 1, linetype="dotted")
+  
+```
 
-      improvement_hygiene + 
-      sugar_liquid + 
-      sugar_solid +
-      
-      # imrovement_diet + 
-      plaque + 
-      bottle_feeding + 
-      # breastfeedong +
-      breastfeeding_code +
-      mouth_breathing +
-      
-      # interactions
-      toothbrushing_frequency * improvement_hygiene + 
-      toothpaste * improvement_hygiene, 
-      
-    data = ecc,
-    family = binomial
-  )
-```
-```{r}
-gtsummary::tbl_regression(m2, exponentiate = TRUE) %>% 
-  gtsummary::bold_labels() %>% 
-  gtsummary::add_n(location = "level")
-```
+
 
 
 

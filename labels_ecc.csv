@@ -1,0 +1,15 @@
+id,new_label
+age,Age
+gender,Gender 
+parental_brushing,Parents brush teeth 
+toothbrushing_frequency,Tooth brushing frecuency
+toothpaste,F Toothpaste use
+hygiene_combined_foranalysis,Toothbrushing (Frequency and F) 
+sugar_liquid,Consumes sugary liquids
+sugar_solid,Consumes sugary solids
+imrovement_diet,Change in the last 12 months towards healthy dietary habits 
+diet_combined_foranalysis,Dietary habits 
+plaque,Plaque presence
+bottle_feeding,Bottle feeding 
+breastfeeding_code,Breastfeeding 
+mouth_breathing,Mouth breathing
